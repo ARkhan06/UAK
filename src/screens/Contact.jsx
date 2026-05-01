@@ -126,17 +126,12 @@ const Contact = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"]
+      details: ["+1 (224) 464-9443"]
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: ["info@uaktransport.com", "support@uaktransport.com"]
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Address",
-      details: ["123 Luxury Lane", "Premium City, ST 12345"]
+      details: ["info@uaktransport.com"]
     }
   ];
 
@@ -195,48 +190,7 @@ const Contact = () => {
                 </motion.div>
               ))}
 
-              {/* Social Media */}
-              <div className="pt-8 mt-8" style={{ borderTop: `1px solid rgba(255, 255, 255, 0.2)` }}>
-                <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <motion.a 
-                    href="#" 
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full transition-colors"
-                    style={{ backgroundColor: `${COLORS.RED}20`, color: COLORS.RED }}
-                  >
-                    <Facebook className="w-5 h-5" />
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full transition-colors"
-                    style={{ backgroundColor: `${COLORS.RED}20`, color: COLORS.RED }}
-                  >
-                    <Twitter className="w-5 h-5" />
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full transition-colors"
-                    style={{ backgroundColor: `${COLORS.RED}20`, color: COLORS.RED }}
-                  >
-                    <Instagram className="w-5 h-5" />
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full transition-colors"
-                    style={{ backgroundColor: `${COLORS.RED}20`, color: COLORS.RED }}
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </motion.a>
-                </div>
-              </div>
+
             </div>
           </div>
 
@@ -343,7 +297,7 @@ const Contact = () => {
                 )}
                 <ReCAPTCHA
                   ref={recaptchaRef}
-                  sitekey="YOUR_RECAPTCHA_SITE_KEY" 
+                  sitekey="6LdI-9MsAAAAADEM2hA8_moOgDhNpsQdqzpVNCWG" 
                   onChange={handleRecaptchaChange}
                   onError={handleRecaptchaError}
                   onExpired={() => setCaptchaValue(null)}
