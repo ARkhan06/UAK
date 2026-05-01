@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MessageSquare, User, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import ReCAPTCHA from "react-google-recaptcha";
 import Navbar from '../components/Navbar';
 
 // Colors
@@ -19,7 +18,6 @@ const COLORS = {
 emailjs.init('qBPXNATj43GZ-yrPw');
 
 const Contact = () => {
-  const recaptchaRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,7 +25,6 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   const handleInputChange = (e) => {
@@ -36,28 +33,6 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
-  };
-
-  const handleRecaptchaChange = (value) => {
-    setCaptchaValue(value);
-    console.log("reCAPTCHA verified successfully");
-  };
-
-  const handleRecaptchaError = () => {
-    console.error("reCAPTCHA error");
-    setCaptchaValue(null);
-    setSubmitStatus({ 
-      type: 'error', 
-      message: 'reCAPTCHA verification failed. Please try again.'
-    });
-  };
-
-  const handleRecaptchaExpired = () => {
-    setCaptchaValue(null);
-    setSubmitStatus({ 
-      type: 'warning', 
-      message: 'reCAPTCHA has expired. Please verify again.'
-    });
   };
 
   const validateForm = () => {
@@ -75,10 +50,6 @@ const Contact = () => {
     }
     if (!formData.message.trim()) {
       setSubmitStatus({ type: 'error', message: 'Please enter a message' });
-      return false;
-    }
-    if (!captchaValue) {
-      setSubmitStatus({ type: 'error', message: 'Please complete the reCAPTCHA verification' });
       return false;
     }
     return true;
@@ -119,10 +90,6 @@ const Contact = () => {
       
       // Reset form
       setFormData({ name: '', email: '', phone: '', message: '' });
-      if (recaptchaRef.current) {
-        recaptchaRef.current.reset();
-      }
-      setCaptchaValue(null);
 
       // Auto-dismiss success message after 6 seconds
       setTimeout(() => {
@@ -307,19 +274,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* reCAPTCHA - Using the correct site key from your Google Console */}
-              <div className="flex justify-center my-6">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey="6LdI-9MsAAAAADEM2hA8_moOgDhNpsQdqzpVNCWG"
-                  onChange={handleRecaptchaChange}
-                  onError={handleRecaptchaError}
-                  onExpired={handleRecaptchaExpired}
-                  theme="light"
-                  size="normal"
-                />
-              </div>
-
               {submitStatus.message && (
                 <motion.div 
                   initial={{ opacity: 0, y: -10 }}
@@ -327,9 +281,7 @@ const Contact = () => {
                   className={`p-4 rounded-lg font-medium text-sm ${
                     submitStatus.type === 'success' 
                       ? 'bg-green-100 text-green-800 border border-green-300' 
-                      : submitStatus.type === 'error'
-                      ? 'bg-red-100 text-red-800 border border-red-300'
-                      : 'bg-yellow-100 text-yellow-800 border border-yellow-300'
+                      : 'bg-red-100 text-red-800 border border-red-300'
                   }`}>
                   {submitStatus.message}
                 </motion.div>
