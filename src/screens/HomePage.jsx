@@ -295,11 +295,7 @@ function About() {
             </motion.div>
           ))}
 
-          <motion.a href="/booking" whileHover={{ scale: 1.04 }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, background: NAVY, color: "#fff", padding: "14px 32px", borderRadius: 50, fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", textDecoration: "none", marginTop: 28 }}>
-            Book a Chauffeur
-            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-          </motion.a>
+         
         </div>
       </div>
       <style>{`@media (max-width: 900px) { .about-grid { grid-template-columns: 1fr !important; } }`}</style>

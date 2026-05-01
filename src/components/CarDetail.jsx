@@ -148,16 +148,7 @@ const CarDetailModal = ({ isOpen, onClose, car }) => {
                 </div>
 
                 {/* CTA */}
-                <Link to="/booking" onClick={onClose} className="mt-auto">
-                  <motion.button
-                    whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${RED}60` }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 rounded-xl font-bold text-white text-base transition-all duration-300"
-                    style={{ backgroundColor: RED }}
-                  >
-                    Book This Vehicle
-                  </motion.button>
-                </Link>
+                
               </div>
             </div>
           </motion.div>

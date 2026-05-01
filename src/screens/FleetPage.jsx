@@ -202,17 +202,7 @@ const FleetPage = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link to="/booking">
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${RED}` }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 text-white flex items-center gap-2 justify-center"
-                style={{ backgroundColor: RED }}
-              >
-                Book Your Ride
-                <ArrowRight size={20} />
-              </motion.button>
-            </Link>
+       
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -302,26 +292,16 @@ const FleetPage = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-0 border-t border-gray-200">
+              <div className="border-t border-gray-200">
                 <motion.button
-                  whileHover={{ backgroundColor: RED + '15' }}
+                  whileHover={{ backgroundColor: RED, color: 'white' }}
                   whileTap={{ scale: 0.98 }}
-                  className="py-4 px-4 text-center font-semibold text-sm transition-all duration-300"
-                  style={{ color: RED, borderRight: '1px solid #f0f0f0' }}
+                  className="w-full py-4 px-4 text-center font-semibold text-sm transition-all duration-300"
+                  style={{ color: RED }}
                   onClick={() => handleOpenModal(car)}
                 >
-                  Details
+                  View Details
                 </motion.button>
-                <Link to="/booking" className="w-full">
-                  <motion.button
-                    whileHover={{ backgroundColor: RED, color: 'white' }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 px-4 text-center font-semibold text-sm transition-all duration-300"
-                    style={{ color: RED }}
-                  >
-                    Book Now
-                  </motion.button>
-                </Link>
               </div>
             </motion.div>
           ))}

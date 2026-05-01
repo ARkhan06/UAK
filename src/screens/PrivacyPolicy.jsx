@@ -158,17 +158,51 @@ const PrivacyPolicyPage = () => {
       {/* Hero Section */}
       <motion.div 
         {...fadeInUp}
-        className="py-20 px-4 sm:px-6 lg:px-8 border-b-4"
-        style={{ borderColor: RED, backgroundColor: NAVY }}
+        className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        style={{ backgroundColor: NAVY }}
       >
-        <div className="max-w-5xl mx-auto ">
-          <div className="flex items-center gap-4 mb-6">
-            <Shield className="h-10 w-10 text-white" />
-            <h1 className="text-5xl sm:text-6xl font-bold text-white">Privacy Policy</h1>
-          </div>
-          <p className="text-xl text-white opacity-90 max-w-3xl">
-            At UAK Transport, we are committed to protecting your privacy and ensuring that your personal information is handled with the utmost care and security.
-          </p>
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10" style={{ backgroundColor: RED }}></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-10" style={{ backgroundColor: RED }}></div>
+        
+        <div className="max-w-5xl mx-auto relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center justify-center mb-8"
+          >
+            <div className="p-4 rounded-full" style={{ backgroundColor: RED }}>
+              <Shield className="h-12 w-12 text-white" />
+            </div>
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-6xl sm:text-7xl font-bold text-white text-center mb-6"
+          >
+            Privacy Policy
+          </motion.h1>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="flex justify-center mb-8"
+          >
+            <div className="h-1 w-24 rounded-full" style={{ backgroundColor: RED }}></div>
+          </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-lg sm:text-xl text-center text-white opacity-95 max-w-3xl mx-auto leading-relaxed"
+          >
+            At UAK Transport, we are committed to protecting your privacy and ensuring that your personal information is handled with the utmost care and security. Your trust is our priority.
+          </motion.p>
         </div>
       </motion.div>
 
@@ -176,13 +210,21 @@ const PrivacyPolicyPage = () => {
         {/* Introduction */}
         <motion.div 
           {...fadeInUp}
-          className="bg-white rounded-lg p-8 mb-16 border-l-4"
-          style={{ borderColor: RED }}
+          className="relative mb-16 p-10 sm:p-12 rounded-xl overflow-hidden"
+          style={{ backgroundColor: "#f8f9fa", borderTop: `4px solid ${RED}` }}
         >
-          <h2 className="text-3xl font-bold mb-4" style={{ color: NAVY }}>Welcome to UAK Transport</h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            This Privacy Policy outlines how we collect, use, and protect your information when you use our premium vehicle services. By using our services, you agree to the collection and use of information in accordance with this policy. We are committed to maintaining the highest standards of data protection and transparency in all our operations.
-          </p>
+          {/* Decorative accent */}
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-5 rounded-full" style={{ backgroundColor: NAVY }}></div>
+          
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-8 rounded-full" style={{ backgroundColor: RED }}></div>
+              <h2 className="text-4xl font-bold" style={{ color: NAVY }}>Welcome to UAK Transport</h2>
+            </div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              This Privacy Policy outlines how we collect, use, and protect your information when you use our premium vehicle services. By using our services, you agree to the collection and use of information in accordance with this policy. We are committed to maintaining the highest standards of data protection and transparency in all our operations.
+            </p>
+          </div>
         </motion.div>
 
         {/* Main Sections */}
