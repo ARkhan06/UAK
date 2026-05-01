@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, MessageSquare, User, Send, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, MessageSquare, User, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from "react-google-recaptcha";
 import Navbar from '../components/Navbar';
-
 
 // Colors
 const COLORS = {
@@ -20,7 +19,6 @@ const COLORS = {
 emailjs.init('qBPXNATj43GZ-yrPw');
 
 const Contact = () => {
-  const form = useRef();
   const recaptchaRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -31,21 +29,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
-  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
-
-  // Check if reCAPTCHA script is loaded properly
-  useEffect(() => {
-    const checkRecaptchaLoaded = () => {
-      if (window.grecaptcha && window.grecaptcha.ready) {
-        setRecaptchaLoaded(true);
-      }
-    };
-
-    checkRecaptchaLoaded();
-    const intervalId = setInterval(checkRecaptchaLoaded, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -57,22 +40,54 @@ const Contact = () => {
 
   const handleRecaptchaChange = (value) => {
     setCaptchaValue(value);
-    console.log("reCAPTCHA value:", value);
+    console.log("reCAPTCHA verified successfully");
   };
 
   const handleRecaptchaError = () => {
-    console.error("reCAPTCHA failed to load or encountered an error");
+    console.error("reCAPTCHA error");
+    setCaptchaValue(null);
     setSubmitStatus({ 
       type: 'error', 
-      message: 'There was a problem loading the reCAPTCHA. Please refresh the page and try again.'
+      message: 'reCAPTCHA verification failed. Please try again.'
     });
+  };
+
+  const handleRecaptchaExpired = () => {
+    setCaptchaValue(null);
+    setSubmitStatus({ 
+      type: 'warning', 
+      message: 'reCAPTCHA has expired. Please verify again.'
+    });
+  };
+
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Please enter your name' });
+      return false;
+    }
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setSubmitStatus({ type: 'error', message: 'Please enter a valid email address' });
+      return false;
+    }
+    if (!formData.phone.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Please enter your phone number' });
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Please enter a message' });
+      return false;
+    }
+    if (!captchaValue) {
+      setSubmitStatus({ type: 'error', message: 'Please complete the reCAPTCHA verification' });
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!captchaValue) {
-      setSubmitStatus({ type: 'error', message: 'Please complete the reCAPTCHA verification' });
+    if (!validateForm()) {
       return;
     }
     
@@ -80,42 +95,44 @@ const Contact = () => {
     setSubmitStatus({ type: '', message: '' });
 
     try {
-      const formElement = form.current;
-      const captchaInput = document.createElement('input');
-      captchaInput.type = 'hidden';
-      captchaInput.name = 'g-recaptcha-response';
-      captchaInput.value = captchaValue;
-      formElement.appendChild(captchaInput);
-
-      await emailjs.sendForm(
+      // Send email using EmailJS
+      const response = await emailjs.send(
         'service_yy61nk5',
         'template_nqibspk',
-        formElement,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          to_email: 'info@uaktransport.com',
+          reply_to: formData.email
+        },
         'qBPXNATj43GZ-yrPw'
       );
 
-      formElement.removeChild(captchaInput);
+      console.log('Email sent successfully:', response);
 
       setSubmitStatus({
         type: 'success',
-        message: 'Message sent successfully! We will get back to you soon.'
+        message: 'Message sent successfully! We will get back to you within 24 hours.'
       });
       
+      // Reset form
       setFormData({ name: '', email: '', phone: '', message: '' });
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
       setCaptchaValue(null);
 
-      // Auto-dismiss success message after 5 seconds
+      // Auto-dismiss success message after 6 seconds
       setTimeout(() => {
         setSubmitStatus({ type: '', message: '' });
-      }, 5000);
+      }, 6000);
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again or contact us directly.'
+        message: `Failed to send message: ${error.text || error.message}. Please try again or contact us at info@uaktransport.com`
       });
     } finally {
       setIsSubmitting(false);
@@ -189,8 +206,6 @@ const Contact = () => {
                   </div>
                 </motion.div>
               ))}
-
-
             </div>
           </div>
 
@@ -199,7 +214,7 @@ const Contact = () => {
             <h2 className="text-3xl font-bold mb-8" style={{ color: COLORS.NAVY }}>
               Send us a Message
             </h2>
-            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2" style={{ color: COLORS.NAVY }}>
                   Full Name
@@ -211,11 +226,11 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none transition"
+                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none focus:ring-2 transition"
                     style={{
                       borderColor: COLORS.BORDER,
                       backgroundColor: COLORS.WHITE,
-                      boxShadow: 'focus:ring-2'
+                      '--tw-ring-color': COLORS.RED
                     }}
                     placeholder="John Doe"
                   />
@@ -234,10 +249,11 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none transition"
+                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none focus:ring-2 transition"
                     style={{
                       borderColor: COLORS.BORDER,
-                      backgroundColor: COLORS.WHITE
+                      backgroundColor: COLORS.WHITE,
+                      '--tw-ring-color': COLORS.RED
                     }}
                     placeholder="john@example.com"
                   />
@@ -256,10 +272,11 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none transition"
+                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none focus:ring-2 transition"
                     style={{
                       borderColor: COLORS.BORDER,
-                      backgroundColor: COLORS.WHITE
+                      backgroundColor: COLORS.WHITE,
+                      '--tw-ring-color': COLORS.RED
                     }}
                     placeholder="+1 (555) 123-4567"
                   />
@@ -278,10 +295,11 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none transition resize-none"
+                    className="w-full p-4 border rounded-lg pl-12 focus:outline-none focus:ring-2 transition resize-none"
                     style={{
                       borderColor: COLORS.BORDER,
-                      backgroundColor: COLORS.WHITE
+                      backgroundColor: COLORS.WHITE,
+                      '--tw-ring-color': COLORS.RED
                     }}
                     placeholder="Your message here..."
                   />
@@ -289,41 +307,47 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="recaptcha-container flex justify-center">
-                {!recaptchaLoaded && (
-                  <p className="text-amber-600 text-sm mb-2">
-                    Loading reCAPTCHA verification...
-                  </p>
-                )}
+              {/* reCAPTCHA - Using the correct site key from your Google Console */}
+              <div className="flex justify-center my-6">
                 <ReCAPTCHA
                   ref={recaptchaRef}
-                  sitekey="6LdI-9MsAAAAADEM2hA8_moOgDhNpsQdqzpVNCWG" 
+                  sitekey="6LdI-9MsAAAAADEM2hA8_moOgDhNpsQdqzpVNCWG"
                   onChange={handleRecaptchaChange}
                   onError={handleRecaptchaError}
-                  onExpired={() => setCaptchaValue(null)}
+                  onExpired={handleRecaptchaExpired}
+                  theme="light"
+                  size="normal"
                 />
               </div>
 
               {submitStatus.message && (
-                <div className={`p-4 rounded-lg font-medium ${
-                  submitStatus.type === 'success' 
-                    ? 'bg-green-100 text-green-700' 
-                    : 'bg-red-100 text-red-700'
-                }`}>
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-lg font-medium text-sm ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-100 text-green-800 border border-green-300' 
+                      : submitStatus.type === 'error'
+                      ? 'bg-red-100 text-red-800 border border-red-300'
+                      : 'bg-yellow-100 text-yellow-800 border border-yellow-300'
+                  }`}>
                   {submitStatus.message}
-                </div>
+                </motion.div>
               )}
 
               <motion.button
                 type="submit"
-                disabled={isSubmitting || !captchaValue}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full text-white py-4 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 flex items-center justify-center space-x-2"
+                disabled={isSubmitting}
+                whileHover={{ scale: !isSubmitting ? 1.02 : 1 }}
+                whileTap={{ scale: !isSubmitting ? 0.98 : 1 }}
+                className="w-full text-white py-4 rounded-lg font-semibold text-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:shadow-lg"
                 style={{ backgroundColor: COLORS.RED }}
               >
                 {isSubmitting ? (
-                  'Sending...'
+                  <>
+                    <span>Sending...</span>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  </>
                 ) : (
                   <>
                     <span>Send Message</span>
@@ -335,7 +359,6 @@ const Contact = () => {
           </div>
         </motion.div>
       </div>
-
     </div>
   );
 };
