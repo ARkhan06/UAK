@@ -455,7 +455,7 @@ function CEOMessage() {
 
           <div style={{ paddingTop: 20, borderTop: `1px solid rgba(255,255,255,0.15)`, marginTop: 24 }}>
             <div style={{ color: RED, fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 12, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>Founder & CEO</div>
-            <div style={{ color: "#fff", fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: 16 }}>UAK Transport</div>
+            <div style={{ color: "#fff", fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: 16 }}>USMAN AZAM KHAN (UAK Transport)</div>
           </div>
         </motion.div>
       </div>
