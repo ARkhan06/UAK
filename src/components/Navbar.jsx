@@ -211,8 +211,39 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Desktop Auth Section */}
-         
+          {/* WhatsApp Button */}
+          <motion.a
+            href="https://wa.me/12244649443"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="nav-whatsapp"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              background: "#25D366",
+              color: "#fff",
+              padding: "8px 14px",
+              borderRadius: 50,
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: 700,
+              fontSize: 11,
+              letterSpacing: 1.5,
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.3s",
+              marginLeft: 8
+            }}
+            onMouseEnter={(e) => e.target.style.background = "#1eae5e"}
+            onMouseLeave={(e) => e.target.style.background = "#25D366"}
+          >
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004c-1.275 0-2.491.124-3.675.372m3.679.372a9.996 9.996 0 016.223 5.652m-6.223-5.652C6.512 5.827 5.297 5.703 4.022 5.703m10.675 8.742c-.587.531-1.371.843-2.207.843-.836 0-1.62-.312-2.207-.843"/>
+            </svg>
+            Chat
+          </motion.a>
 
           {/* Hamburger Menu */}
           <button 
@@ -264,6 +295,37 @@ export default function Navbar() {
                     {l.label}
                   </motion.a>
                 ))}
+
+                {/* Mobile WhatsApp Button */}
+                <motion.a 
+                  href="https://wa.me/12244649443"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ x: -20, opacity: 0 }} 
+                  animate={{ x: 0, opacity: 1 }} 
+                  transition={{ delay: NAV_LINKS.length * 0.05 }}
+                  style={{ 
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "12px 0", 
+                    marginTop: 8,
+                    paddingTop: 12,
+                    borderTop: `1px solid rgba(10,30,61,0.06)`,
+                    color: "#25D366", 
+                    fontWeight: 600, 
+                    fontSize: 12, 
+                    letterSpacing: 1.5, 
+                    textTransform: "uppercase", 
+                    textDecoration: "none", 
+                    cursor: "pointer"
+                  }}
+                >
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004c-1.275 0-2.491.124-3.675.372m3.679.372a9.996 9.996 0 016.223 5.652m-6.223-5.652C6.512 5.827 5.297 5.703 4.022 5.703m10.675 8.742c-.587.531-1.371.843-2.207.843-.836 0-1.62-.312-2.207-.843"/>
+                  </svg>
+                  Chat on WhatsApp
+                </motion.a>
 
                 {/* Mobile Auth Section */}
       

@@ -9,6 +9,8 @@ import Bus from "../assets/bus.jfif";
 import Home1 from "../assets/Home1.jfif";
 import Home2 from "../assets/Home2.jfif";
 import services from "../assets/Services.jfif";
+import CEO from "../assets/CEO.jpeg";
+import Truck from "../assets/Truck.jpeg";
 
 const NAVY = "#0a1e3d";
 const RED  = "#c8102e";
@@ -31,6 +33,17 @@ const SERVICES = [
     desc:  "Arrive in style for weddings, galas, anniversaries, and every milestone that deserves a grand entrance.",
     img:   Home1,
   },
+];
+
+const TRUCKING_SERVICES = [
+  { title: "Full Truckload (FTL)", desc: "Dedicated truck capacity for large shipments requiring direct transportation with minimal transit time." },
+  { title: "Less Than Truckload (LTL)", desc: "Affordable and flexible shipping solutions for smaller freight shipments without paying for an entire trailer." },
+  { title: "Cross-Border Freight", desc: "Seamless transportation services between Canada and the USA with efficient customs coordination and documentation support." },
+  { title: "Expedited Shipping", desc: "Time-sensitive deliveries handled with priority dispatch and fast transit schedules." },
+  { title: "Dry Van Transportation", desc: "Safe and secure transportation for general cargo and palletized freight across multiple industries." },
+  { title: "Reefer & Temperature-Controlled Freight", desc: "Reliable refrigerated transportation for temperature-sensitive goods including food, pharmaceuticals, and perishables." },
+  { title: "Dedicated Freight Solutions", desc: "Customized trucking programs for businesses requiring consistent and scheduled transportation support." },
+  { title: "Last-Mile Delivery", desc: "Fast and professional final-mile delivery solutions for commercial and residential shipments." },
 ];
 
 const FEATURES = [
@@ -354,6 +367,104 @@ function Occasions() {
 
 
 
+// ─── Trucking Services ────────────────────────────────────────────────────────
+function TruckingServices() {
+  return (
+    <section style={{ padding: "100px 32px", background: "#fff" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 60 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 14 }}>
+            <div style={{ width: 28, height: 2, background: RED }} />
+            <span style={{ color: RED, fontWeight: 700, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontFamily: "'Montserrat', sans-serif" }}>Trucking Solutions</span>
+            <div style={{ width: 28, height: 2, background: RED }} />
+          </div>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 3.6rem)", color: NAVY, textTransform: "uppercase", margin: 0, lineHeight: 1.05, marginBottom: 20 }}>
+            USA & Canada <span style={{ color: RED }}>Trucking Services</span>
+          </h2>
+          <p style={{ fontFamily: "'Inter', sans-serif", color: "#6b7280", fontSize: 15, lineHeight: 1.8, maxWidth: 700, margin: "0 auto" }}>
+            Reliable Cross-Border Trucking Solutions with customized transportation tailored to your business needs.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }} className="truck-grid">
+          {TRUCKING_SERVICES.map((service, i) => (
+            <motion.div key={service.title}
+              initial={{ y: 30, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.6 }}
+              whileHover={{ y: -10 }}
+              style={{ padding: "28px", background: "linear-gradient(135deg, rgba(10,30,61,0.03) 0%, rgba(200,16,46,0.02) 100%)", border: `1px solid rgba(10,30,61,0.08)`, borderRadius: 16, cursor: "pointer", transition: "all 0.3s" }}
+              className="truck-card">
+              <div style={{ width: 40, height: 4, background: RED, marginBottom: 16, borderRadius: 2 }} />
+              <h3 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 14, color: NAVY, textTransform: "uppercase", margin: "0 0 12px", letterSpacing: 0.5 }}>
+                {service.title}
+              </h3>
+              <p style={{ fontFamily: "'Inter', sans-serif", color: "#6b7280", fontSize: 13, lineHeight: 1.6, margin: 0 }}>
+                {service.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .truck-card:hover { background: linear-gradient(135deg, rgba(10,30,61,0.08) 0%, rgba(200,16,46,0.05) 100%); border-color: rgba(200,16,46,0.3); }
+        @media (max-width: 1024px) { .truck-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 768px) { .truck-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── CEO Message ──────────────────────────────────────────────────────────────
+function CEOMessage() {
+  return (
+    <section style={{ padding: "100px 32px", background: NAVY }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }} className="ceo-grid">
+        <motion.div initial={{ x: -50, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
+          style={{ position: "relative", height: 650 }}>
+          <img src={CEO} alt="CEO" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 20, boxShadow: "0 20px 60px rgba(200,16,46,0.3)" }} />
+          <div style={{ position: "absolute", bottom: -20, right: -20, width: 120, height: 120, background: RED, opacity: 0.15, borderRadius: "50%", zIndex: -1 }} />
+        </motion.div>
+
+        <motion.div initial={{ x: 50, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <div style={{ width: 28, height: 2, background: RED }} />
+            <span style={{ color: RED, fontWeight: 700, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontFamily: "'Montserrat', sans-serif" }}>CEO Message</span>
+          </div>
+          
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: "clamp(1.8rem, 3.2vw, 3rem)", color: "#fff", lineHeight: 1.1, textTransform: "uppercase", margin: "0 0 20px" }}>
+            Leadership & <span style={{ color: RED }}>Innovation</span>
+          </h2>
+
+          <div style={{ fontFamily: "'Inter', sans-serif", color: "rgba(255,255,255,0.8)", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>
+            <p style={{ marginBottom: 16 }}>
+              At the heart of our company is a vision built through nearly two decades of leadership and hands-on experience in transportation and logistics across Dubai and the Middle East. Over the past 19 years, we have managed large-scale logistics operations and contributed to the growth of modern transportation solutions.
+            </p>
+            
+            <p style={{ marginBottom: 16 }}>
+              In January 2026, that vision expanded into the United States — founded on the principles of innovation, reliability, operational excellence, and digital transformation. We provide dependable, efficient, and technology-driven solutions tailored to evolving client needs.
+            </p>
+
+            <p style={{ marginBottom: 16 }}>
+              What sets us apart is our commitment to digital integration and smart logistics. We believe the future of transportation lies in intelligent systems, real-time connectivity, and streamlined operations.
+            </p>
+
+            <p>
+              Every mile we cover reflects our dedication to professionalism, integrity, and service excellence. We remain fully committed to building a forward-thinking organization that moves goods and people safely and efficiently.
+            </p>
+          </div>
+
+          <div style={{ paddingTop: 20, borderTop: `1px solid rgba(255,255,255,0.15)`, marginTop: 24 }}>
+            <div style={{ color: RED, fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 12, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>Founder & CEO</div>
+            <div style={{ color: "#fff", fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: 16 }}>UAK Transport</div>
+          </div>
+        </motion.div>
+      </div>
+      <style>{`@media (max-width: 900px) { .ceo-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
+    </section>
+  );
+}
+
+
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function UAKHomePage() {
   return (
@@ -367,9 +478,12 @@ export default function UAKHomePage() {
       
       <Hero />
       <FeatureCards />
-      <Services />
       <About />
+      <CEOMessage />
+      <Services />
+      <TruckingServices />
       <Occasions />
+
       
     </>
   );

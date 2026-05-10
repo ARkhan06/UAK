@@ -12,6 +12,7 @@ import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jfif";
+import Truck from "../assets/Truck.jpeg";
 
 const NAVY = "#0a1e3d";
 const RED = "#c8102e";
@@ -89,6 +90,16 @@ const FleetPage = () => {
       seats: 8,
       luggage: 6,
       speed: '200 km/h',
+      year: '2024',
+    },
+    {
+      id: 7,
+      image: Truck,
+      name: 'Heavy Duty Truck',
+      transmission: 'Automatic',
+      seats: 2,
+      luggage: 20,
+      speed: '140 km/h',
       year: '2024',
     },
   ];
