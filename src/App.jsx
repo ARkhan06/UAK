@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import SplashScreen from './components/SplashScreen';
 import { AuthProvider } from './context/Authcontext';
 // Page imports
 import HomePage from './screens/HomePage';
@@ -55,9 +56,16 @@ const AppContent = () => {
 };
 
 const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
+
+  const handleSplashClose = () => {
+    setShowSplash(false);
+  };
+
   return (
     <Router>
       <AuthProvider>
+        {showSplash && <SplashScreen onClose={handleSplashClose} />}
         <AppContent />
       </AuthProvider>
     </Router>
