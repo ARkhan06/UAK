@@ -6,7 +6,7 @@ import { Car, Users, Gauge, Briefcase, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CarDetailModal from '../components/CarDetail';
-import SUV from "../assets/SUV1.jfif";
+import SUV from "../assets/SUV.jfif";
 import MiniVan from "../assets/MiniVan.jfif";
 import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";

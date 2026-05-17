@@ -12,7 +12,24 @@ export default function Footer() {
   const location = useLocation();
 
   const handleNavClick = (link) => {
-    if (link.href.startsWith("/")) {
+    if (link.section) {
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(link.section);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+          window.location.hash = link.section;
+        }, 100);
+      } else {
+        const element = document.getElementById(link.section);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+        window.location.hash = link.section;
+      }
+    } else if (link.href.startsWith("/")) {
       navigate(link.href);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (link.href === "contact") {
@@ -58,7 +75,7 @@ export default function Footer() {
               { title: "Company",   links: [
                 { name: "About Us", href: "/" },
                 { name: "Our Chauffeurs", href: "/" },
-                { name: "Careers", href: "/contact" },
+                { name: "CEO message", href: "/", section: "about" },
                 { name: "Contact Us", href: "/contact" },
                 { name: "Privacy Policy", href: "/privacy" }
               ]},
